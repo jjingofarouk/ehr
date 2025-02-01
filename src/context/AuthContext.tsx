@@ -1,18 +1,23 @@
-import { createContext, useContext, ReactNode, useState } from 'react';
+import { createContext, useContext, useState, ReactNode } from "react";
+
+interface User {
+  email: string;
+  // Add more user fields if needed (e.g., name, role, etc.)
+}
 
 interface AuthContextType {
-  user: any;
-  login: (email: string, password: string) => void;
+  user: User | null; // user can be null when not logged in
+  login: (email: string) => void; // Removed 'password' from parameters
   logout: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
 
-  const login = (email: string, password: string) => {
-    // Add login logic
+  const login = (email: string) => {
+    // Add login logic (password is no longer needed for now)
     setUser({ email });
   };
 
